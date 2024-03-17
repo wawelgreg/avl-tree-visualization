@@ -39,7 +39,7 @@ class AVLTree:
 
 	
 	def in_order(self):
-		cn = self.root
+		cn = self.get_root()
 		if cn is None:
 			log.error("Tree is empty!")
 			return []
@@ -57,7 +57,36 @@ class AVLTree:
 		
 		return res
 
+	
+	def tree_matrix(self):
+		cn = self.get_root()
+		if cn is None:
+			log.error("Tree is empty!")
+			return []
+
+		return self.tree_matrix_r(cn)
+
+	def tree_matrix_r(self, cn=None, depth=0):
+		if cn is None:
+			return []
+
+		res = []
+		res += self.tree_matrix_r(cn.right, depth+1)
+		res.append(' '*depth + "<():" + str(cn.payload))
+		res += self.tree_matrix_r(cn.left, depth+1)
 		
+		return res		
+
+	def print_tree(self):
+		matrix = self.tree_matrix()
+		print "---------------"
+		for line in matrix:
+			print line
+		print "---------------"
+
+
+
+
 if __name__ == "__main__":
 	tree = AVLTree()
 
@@ -66,5 +95,5 @@ if __name__ == "__main__":
 	for item in l:
 		tree.insert(item)
 
-	print tree.in_order()
-
+	print "In order:", tree.in_order(), "\n"
+	tree.print_tree()
