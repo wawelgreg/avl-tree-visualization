@@ -35,9 +35,21 @@ class AVLTree:
 			log.debug("(->) PL:%r > CN:%r", payload, cn.payload)
 			cn.right = self.insert_r(payload, cn.right)
 		
+		self.set_height(cn)
+		
 		return cn
 
+
+	def set_height(self, cn=None):
+		cn.height = max(self.get_height(cn.left), self.get_height(cn.right)) + 1
+
+	def get_height(self, cn=None):
+		if cn is None:
+			return -1
+		
+		return cn.height
 	
+
 	def in_order(self):
 		cn = self.get_root()
 		if cn is None:
@@ -72,7 +84,7 @@ class AVLTree:
 
 		res = []
 		res += self.tree_matrix_r(cn.right, depth+1)
-		res.append(' '*depth + "<():" + str(cn.payload))
+		res.append(' '*depth + "<({}):".format(cn.height) + str(cn.payload))
 		res += self.tree_matrix_r(cn.left, depth+1)
 		
 		return res		
