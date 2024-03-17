@@ -43,7 +43,7 @@ class AVLTree:
 		if cn is None:
 			log.error("Tree is empty!")
 			return []
-		
+			
 		return self.in_order_r(cn)
 
 	def in_order_r(self, cn):

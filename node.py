@@ -5,3 +5,4 @@ class Node:
 		self.payload = payload
 		self.left = None
 		self.right = None
+		self.bf = None # Balance factor	
