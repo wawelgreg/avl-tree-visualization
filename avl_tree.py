@@ -9,21 +9,56 @@ class AVLTree:
 	def __init__(self):
 		self.root = None
 
+	def get_root(self):
+		return self.root
+
+
+	def insert(self, payload):
+		if payload is None:
+			log.error("Payload is empty!")
+			return
+
+		self.root = self.insert_r(payload, self.root)
+
+	def insert_r(self, payload, cn):
+		if cn is None:
+			cn = node.Node(payload)
+
+		if payload < cn.payload:
+			cn.left = self.insert_r(payload, cn.left)
+		if payload > cn.payload:
+			cn.right = self.insert_r(payload, cn.right)
+		
+		return cn
+
 	
+	def in_order(self):
+		cn = self.root
+		if cn is None:
+			log.error("Tree is empty!")
+			return []
+		
+		return self.in_order_r(cn)
+
+	def in_order_r(self, cn):
+		if cn is None:
+			return []
+
+		res = []
+		res += self.in_order_r(cn.left)
+		res.append(cn.payload)
+		res += self.in_order_r(cn.right)
+		
+		return res
+
 		
 if __name__ == "__main__":
-	log.debug("Test log 1")
 	tree = AVLTree()
 
-	na = node.Node(2)
-	nb = node.Node(1)
-	nc = node.Node(3)
+	l = [2, 1, 3, 3]
 
-	tree.root = na
-	tree.root.left = nb
-	tree.root.right = nc
+	for item in l:
+		tree.insert(item)
 
-	print "Tree root", tree.root.payload
-	print "Root left child", tree.root.left.payload		
-	print "Root right child", tree.root.right.payload		
-	log.debug("Test log 2")
+	print tree.in_order()
+
