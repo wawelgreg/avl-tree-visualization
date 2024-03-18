@@ -1,6 +1,9 @@
 #!/usr/bin/python
 import node
 import logging as log
+import time
+
+FRAMESLEEP = 0.1
 
 log.basicConfig(format='%(asctime)s.%(msecs)03d %(levelname)-8s %(message)s',level=log.DEBUG, filename='bt.log', datefmt='%Y-%m-%dT%H:%M:%S%z')
 
