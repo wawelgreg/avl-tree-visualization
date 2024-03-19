@@ -2,13 +2,16 @@
 import node
 import logging as log
 import time
-
-FRAMESLEEP = 0.1
+import curses
 
 log.basicConfig(format='%(asctime)s.%(msecs)03d %(levelname)-8s %(message)s',level=log.DEBUG, filename='bt.log', datefmt='%Y-%m-%dT%H:%M:%S%z')
 
 log.info("<<<<<<<<<<< STARTING PROCESS >>>>>>>>>>")
 
+stdscr = curses.initscr()
+pad = curses.newpad(100,3000)
+
+#TODO: Implement automatic balancing
 class AVLTree:
 	def __init__(self):
 		self.root = None
@@ -98,17 +101,38 @@ class AVLTree:
 		for line in matrix:
 			print line
 		print "---------------"
-
+	
+	def draw(self, matrix):
+		for ri, r in enumerate(matrix):
+			for ci, c in enumerate(r):
+				pad.addch(ri, ci, matrix[ri][ci])	
 
 
 
 if __name__ == "__main__":
+	TIME, TIME_END = 0.3, 3
+	LEVEL_SPACER = 2
+	IN_LIST = [-1,0,-10,-5,234,2341234,12341234,242,234,222,1]	
+
 	tree = AVLTree()
 
-	l = [2, 1, 3, 3, 4, 5, -1, -2, -5, -6, 100, 34, -101, -99]
+	def func(scr):
+		for i, item in enumerate(IN_LIST):
+			tree.insert(item)
+			pad.erase()
+			tree.draw(tree.tree_matrix())
+			pad.refresh(0,0, 0,0, curses.LINES-1, curses.COLS-1)
+			time.sleep(TIME)
+		time.sleep(TIME_END)
 
-	for item in l:
-		tree.insert(item)
-
-	print "In order:", tree.in_order(), "\n"
+	curses.wrapper(func)
 	tree.print_tree()
+
+
+
+
+
+
+
+
+		
