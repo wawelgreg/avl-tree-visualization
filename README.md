@@ -9,3 +9,10 @@ Insertion and automatic balancing of AVL tree with live visualization on termina
 
 ## Background
 
+## Usage
+
+To run, call the executable python file *avl_tree.py* from the command line:
+
+```
+./avl_tree.py
+```
