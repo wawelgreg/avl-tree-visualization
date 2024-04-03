@@ -128,22 +128,22 @@ class AVLTree:
 		return res
 
 	
-	def tree_matrix(self):
+	def tree_matrix(self, LVL_SPC=1):
 		cn = self.get_root()
 		if cn is None:
 			log.error("Tree is empty!")
 			return []
 
-		return self.tree_matrix_r(cn)
+		return self.tree_matrix_r(cn, LVL_SPC)
 
-	def tree_matrix_r(self, cn=None, depth=0):
+	def tree_matrix_r(self, cn=None, LVL_SPC=1, depth=0):
 		if cn is None:
 			return []
 
 		res = []
-		res += self.tree_matrix_r(cn.right, depth+1)
-		res.append(' '*depth + "<({}):".format(cn.height) + str(cn.payload))
-		res += self.tree_matrix_r(cn.left, depth+1)
+		res += self.tree_matrix_r(cn.right, LVL_SPC, depth+1)
+		res.append(' '*(depth*LVL_SPC) + "<({}):".format(cn.height) + str(cn.payload))
+		res += self.tree_matrix_r(cn.left, LVL_SPC, depth+1)
 		
 		return res		
 
@@ -163,8 +163,8 @@ class AVLTree:
 
 if __name__ == "__main__":
 	TIME, TIME_END = 1, 3
-	LEVEL_SPACER = 2
-	IN_LIST = [-1,0,-10,-5,234,2341234,12341234,242,234,222,12342,2342,2424,23434,22342,111]	
+	LEVEL_SPACER = 5
+	IN_LIST = [0,1,2,3,4,5,6,7,-1,-2,-99,-40,-20,8,9]	
 
 	tree = AVLTree()
 
@@ -172,7 +172,7 @@ if __name__ == "__main__":
 		for i, item in enumerate(IN_LIST):
 			tree.insert(item)
 			pad.erase()
-			tree.draw(tree.tree_matrix())
+			tree.draw(tree.tree_matrix(LEVEL_SPACER))
 			pad.refresh(0,0, 0,0, curses.LINES-1, curses.COLS-1)
 			time.sleep(TIME)
 		time.sleep(TIME_END)
