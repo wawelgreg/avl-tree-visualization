@@ -43,7 +43,59 @@ class AVLTree:
 		
 		self.set_height(cn)
 		
+		return self.rotate(cn)
+	
+	def rotate(self, cn):
+		lh = self.get_height(cn.left)
+		rh = self.get_height(cn.right)
+
+		if rh - lh < -1: # Left heavy
+			llh = self.get_height(cn.left.left)
+			lrh = self.get_height(cn.left.right)
+			
+			if lrh - llh < -1: # Left left case
+				return self.right_rotate(cn)
+
+			if lrh - llh > 1: # Left right case
+				cn.left = self.left_rotate(cn.left)
+				return self.right_rotate(cn)
+			
+		if rh - lh > 1: # Right heavy
+			rrh = self.get_height(cn.right.right)
+			rlh = self.get_height(cn.right.left)
+
+			if rrh - rlh > 1: # Right right case
+				return self.left_rotate(cn)
+			
+			if rrh - rlh < -1: # Right left case
+				cn.right = self.right_rotate(cn.right)
+				return self.left_rotate(cn)
+
 		return cn
+	
+	def right_rotate(self, p):
+		c = p.left
+		t = c.right
+		
+		c.right = p
+		p.left = t
+
+		self.set_height(p)
+		self.set_height(c)
+
+		return c
+
+	def left_rotate(self, p):
+		c = p.right
+		t = c.left
+
+		c.left = p
+		p.right = t
+	
+		self.set_height(p)
+		self.set_height(c)
+
+		return c
 
 
 	def set_height(self, cn=None):
@@ -110,9 +162,9 @@ class AVLTree:
 
 
 if __name__ == "__main__":
-	TIME, TIME_END = 0.3, 3
+	TIME, TIME_END = 1, 3
 	LEVEL_SPACER = 2
-	IN_LIST = [-1,0,-10,-5,234,2341234,12341234,242,234,222,1]	
+	IN_LIST = [-1,0,-10,-5,234,2341234,12341234,242,234,222,12342,2342,2424,23434,22342,111]	
 
 	tree = AVLTree()
 
