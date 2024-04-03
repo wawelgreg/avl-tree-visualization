@@ -35,4 +35,20 @@ IN_LIST = [0,1,2,3,4,5,6,7,-1,-2,-99,-40,-20,8,9]
 *TIME_END*: float: This number value corresponds to the duration of display of the final resulting generated AVL Tree before automatic closing of the curses wrapper() function and program closing.
 (1 = One second)
 
+*LEVEL_SPACER*: int: This integer value corresponds to the depth of spacing from the left for each branch in the AVL Tree matrix used for visualization and printing. The spacing left of the visualized node is calculated by multiplication of the depth of the AVL Tree traversal with the *LEVEL_SPACER* integer constant.
+```
+LEVEL_SPACER = 0
+```
+![image](https://github.com/wawelgreg/avl-tree-visualization/assets/141285799/d48ea42d-045b-4421-9d13-2d544fb2b75d)
+
+```
+LEVEL_SPACER = 1
+```
+![image](https://github.com/wawelgreg/avl-tree-visualization/assets/141285799/70a01f05-8968-4777-b32e-7839b3d59c34)
+
+```
+LEVEL_SPACER = 5
+```
+![image](https://github.com/wawelgreg/avl-tree-visualization/assets/141285799/28408835-a029-460e-ba49-ed9ccb17d7fc)
+
 *IN_LIST*: list(float/int): This list of numbers is iterated and used to insert nodes into the AVL Tree with payload of corresponding value from list. 
