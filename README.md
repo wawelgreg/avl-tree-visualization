@@ -2,13 +2,12 @@
 
 ![avl_tree_screenshot](https://github.com/wawelgreg/avl-tree-visualization/assets/141285799/a3e3dda2-b430-4831-90bd-4a0664737e4e)
 
-
 Insertion and automatic balancing of AVL tree with live visualization on terminal screen.
 
 ## Info
 
 - Meant to be run in shell/terminal.
-- Uses Python Curses.
+- Uses Python [Curses](https://docs.python.org/3/howto/curses.html).
 
 ## Background
 
